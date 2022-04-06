@@ -13,6 +13,6 @@ public class PaymentService {
         }
         Customer customer = customerRepository.findById(customerId);
 
-        return null;
+        return new Receipt(customerId, productAmt);
     }
 }

@@ -1,5 +1,6 @@
 package paymentService;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -21,12 +22,13 @@ public class PaymentServiceTest {
 
     @Test
     void pay() {
+        Customer customer = new Customer(1L, 10000L);
         Long productAmt = 2000L;
         Long customerId = 1L;
 
         Receipt result = service.pay(productAmt, customerId);
-        Customer customer = customerRepository.findById(customerId);
-        assertThat().isEqualTo()
+
+        assertThat(customer.getBalance() - result.getProductAmt()).isEqualTo(8000L);
 
 
         // assertion w/ receipt
