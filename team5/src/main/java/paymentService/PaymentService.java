@@ -2,6 +2,8 @@ package paymentService;
 
 public class PaymentService {
     private CustomerRepository customerRepository;
+    final static Double POINT_RATE = 0.05;
+    private Long paymentAmt;
 
     public PaymentService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -12,7 +14,8 @@ public class PaymentService {
             throw new IllegalArgumentException("productAmt is invalid: " + productAmt);
         }
         Customer customer = customerRepository.findById(customerId);
-
-        return new Receipt(customerId, productAmt);
+        paymentAmt = productAmt - customer.getPoint();
+        return new Receipt(customerId, productAmt, (long) (paymentAmt*POINT_RATE));
     }
+
 }
