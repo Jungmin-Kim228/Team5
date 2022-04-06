@@ -21,10 +21,13 @@ public class PaymentServiceTest {
 
     @Test
     void pay() {
-        long productAmt = 0L;
-        Long customerId = 0L;
+        Long productAmt = 2000L;
+        Long customerId = 1L;
 
         Receipt result = service.pay(productAmt, customerId);
+        Customer customer = customerRepository.findById(customerId);
+        assertThat().isEqualTo()
+
 
         // assertion w/ receipt
     }
@@ -54,11 +57,7 @@ public class PaymentServiceTest {
             .isInstanceOf(CustomerNotExistsException.class);
     }
 
-    @DisplayName("실 결재 금액을 기준으로 결제가 잘 되는지")
-    @Test
-    void test{
 
-    }
 
 
 }
