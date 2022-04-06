@@ -39,6 +39,36 @@ public class PaymentServiceTest {
 //        verify(alertDummy).alertCall();
     }
 
+    @DisplayName("가지고 있는 포인트가 결제 금액보다 큰 경우")
+    @Test
+    void pay_more_point_than_productAmt() {
+        Long productAmt = 2000L;
+        Long customerId = 1L;
+
+        Customer customer = new Customer(customerId, 10000L, 5000L);
+        when(customerRepository.findById(customerId)).thenReturn(customer);
+
+        Receipt result = service.pay(productAmt, customerId);
+
+        assertThat(customer.getBalance()).isEqualTo(10000L);
+        assertThat(customer.getPoint()).isEqualTo(3000L);
+    }
+
+    @DisplayName("가지고 있는 포인트가 결제 금액보다 같은 경우")
+    @Test
+    void pay_less_point_than_productAmt() {
+        Long productAmt = 2000L;
+        Long customerId = 1L;
+
+        Customer customer = new Customer(customerId, 10000L, 2000L);
+        when(customerRepository.findById(customerId)).thenReturn(customer);
+
+        Receipt result = service.pay(productAmt, customerId);
+
+        assertThat(customer.getBalance()).isEqualTo(10000L);
+        assertThat(customer.getPoint()).isEqualTo(0L);
+    }
+
     @DisplayName("결재 금액이 유효해야함.(null이면 안됨, 음수이면 안됨)")
     @Test
     void pay_productAmtInvalid_throwIllegalArgumentException() {
@@ -50,6 +80,7 @@ public class PaymentServiceTest {
                 .hasMessageContainingAll("productAmt is invalid");
 
     }
+
 
 
     @DisplayName("계정이 없으면 예외 발생.")

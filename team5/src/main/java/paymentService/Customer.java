@@ -26,4 +26,8 @@ public class Customer {
     public void earnPoint(Long point) {
         this.point += point;
     }
+
+    public void deductPoint(Long productAmt) {
+        this.point -= productAmt;
+    }
 }

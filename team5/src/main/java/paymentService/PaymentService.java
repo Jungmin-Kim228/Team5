@@ -21,7 +21,13 @@ public class PaymentService {
 
         Customer customer = customerRepository.findById(customerId);
 
-        paymentAmt = productAmt - customer.getPoint(); // 실지불금액 계산
+        Long x = customer.getPoint();
+        if (customer.getPoint() >= productAmt) {
+            paymentAmt = 0L;
+            customer.deductPoint(productAmt);
+        } else {
+            paymentAmt = productAmt - customer.getPoint(); // 실지불금액 계산
+        }
 
         customer.afterPayBalance(customer.getBalance() - paymentAmt); // 고객 잔액 변경
         customer.earnPoint((long) (paymentAmt * POINT_RATE)); // 고객 포인트 변경
