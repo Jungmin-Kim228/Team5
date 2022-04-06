@@ -31,19 +31,12 @@ public class PaymentServiceTest {
 
         Customer customer = new Customer(customerId, 10000L, 0L);
         when(customerRepository.findById(customerId)).thenReturn(customer);
-        //service.setPaymentService(customerRepository);
+
         Receipt result = service.pay(productAmt, customerId);
 
         assertThat(customer.getBalance()).isEqualTo(8000L);
         assertThat(customer.getPoint()).isEqualTo(100L);
         assertThat(result).isNotNull();
-        // 구매를 했을 때 손님 잔액이 잘 남는지
-        // 하지만 포인트 쌓이는 것은 아직 구현 안함
-
-        // assertThat(customer.getPoint()).isEqualTo(75L);
-        // 포인트 모두 사용한다고 가정하고, 계산 후 적립금이 실지불금액 * 5%가 맞는지 확인
-
-        // assertion w/ receipt
     }
 
     @DisplayName("결재 금액이 유효해야함.(null이면 안됨, 음수이면 안됨)")

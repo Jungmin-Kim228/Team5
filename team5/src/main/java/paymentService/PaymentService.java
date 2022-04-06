@@ -17,19 +17,13 @@ public class PaymentService {
         }
         Customer customer = customerRepository.findById(customerId);
 
-        paymentAmt = productAmt - customer.getPoint();
+        paymentAmt = productAmt - customer.getPoint(); // 실지불금액 계산
 
-        customer.setBalance(customer.getBalance() - paymentAmt);
-        customer.setPoint((long) (paymentAmt * POINT_RATE));
-        
-        //customerRepository.getCustomers().put(customerId, customer);
+        customer.afterPayBalance(customer.getBalance() - paymentAmt); // 고객 잔액 변경
+        customer.earnPoint((long) (paymentAmt * POINT_RATE)); // 고객 포인트 변경
 
         return new Receipt(customerId, productAmt);
 
-    }
-
-    public void setPaymentService(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
     }
 }
 /*

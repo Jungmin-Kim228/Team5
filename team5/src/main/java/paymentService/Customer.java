@@ -20,11 +20,11 @@ public class Customer {
         return point;
     }
 
-    public void setBalance(Long balance) {
+    public void afterPayBalance(Long balance) {
         this.balance = balance;
     }
 
-    public void setPoint(Long point) {
-        this.point = point;
+    public void earnPoint(Long point) {
+        this.point += point;
     }
 }
