@@ -1,8 +1,8 @@
 package paymentService;
 
 public class PaymentService {
-    private CustomerRepository customerRepository;
     final static Double POINT_RATE = 0.05;
+    private CustomerRepository customerRepository;
     private Long paymentAmt;
 
     public PaymentService(CustomerRepository customerRepository) {
@@ -18,4 +18,7 @@ public class PaymentService {
         return new Receipt(customerId, productAmt, (long) (paymentAmt*POINT_RATE));
     }
 
+    public void setPaymentService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 }

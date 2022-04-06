@@ -2,12 +2,12 @@ package paymentService;
 
 public class Customer {
 
-    private Long customerId;
+    private Long id;
     private Long balance;
     private Long point;
 
-    public Customer(Long customerId, Long balance, Long point) {
-        this.customerId = customerId;
+    public Customer(Long id, Long balance, Long point) {
+        this.id = id;
         this.balance = balance;
         this.point = point;
     }

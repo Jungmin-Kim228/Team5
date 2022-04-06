@@ -1,6 +1,5 @@
 package paymentService;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class CustomerRepository {
@@ -16,7 +15,7 @@ public class CustomerRepository {
      */
     public Customer findById(Long customerId) {
         // TODO
-        if(customers.get(customerId)==null){
+        if(customers.get(customerId) == null){
             throw new CustomerNotExistsException(customerId + "가 존재하지 않습니다.");
         }
         return customers.get(customerId);
