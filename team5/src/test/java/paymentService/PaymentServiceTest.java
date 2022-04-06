@@ -3,10 +3,8 @@ package paymentService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.util.HashMap;
-import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +23,7 @@ public class PaymentServiceTest {
 
     @DisplayName("실 결재 금액을 기준으로 적립율에 따라서 적립됨.")
     @Test
-    void pay_and_save() {
+    void pay_and_save_and_callAlert() {
         Long productAmt = 2000L;
         Long customerId = 1L;
 
@@ -37,6 +35,8 @@ public class PaymentServiceTest {
         assertThat(customer.getBalance()).isEqualTo(8000L);
         assertThat(customer.getPoint()).isEqualTo(100L);
         assertThat(result).isNotNull();
+
+//        verify(alertDummy).alertCall();
     }
 
     @DisplayName("결재 금액이 유효해야함.(null이면 안됨, 음수이면 안됨)")

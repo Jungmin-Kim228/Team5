@@ -25,16 +25,10 @@ public class PaymentService {
 
         customer.afterPayBalance(customer.getBalance() - paymentAmt); // 고객 잔액 변경
         customer.earnPoint((long) (paymentAmt * POINT_RATE)); // 고객 포인트 변경
-        try {
-            AlertDummy alertDummy = new AlertDummy();
-            alertDummy.alert(true);
-        } catch(AlertNothingException e){
-          e.printStackTrace();
-        } finally{
-            return new Receipt(customerId, productAmt);
-        }
 
+        AlertDummy alertDummy = new AlertDummy();
+        alertDummy.alertCall();
 
-
+        return new Receipt(customerId, productAmt);
     }
 }
