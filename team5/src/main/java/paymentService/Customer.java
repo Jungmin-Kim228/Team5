@@ -19,4 +19,12 @@ public class Customer {
     public Long getPoint() {
         return point;
     }
+
+    public void setBalance(Long balance) {
+        this.balance = balance;
+    }
+
+    public void setPoint(Long point) {
+        this.point = point;
+    }
 }

@@ -21,5 +21,7 @@ public class CustomerRepository {
         return customers.get(customerId);
     }
 
-
+    public Map<Long, Customer> getCustomers() {
+        return customers;
+    }
 }

@@ -37,7 +37,8 @@ public class PaymentServiceTest {
         service.setPaymentService(customerRepository);
         Receipt result = service.pay(productAmt, customerId);
 
-        assertThat(customer.getBalance() - result.getProductAmt()).isEqualTo(8000L);
+        assertThat(customer.getBalance()).isEqualTo(8500L);
+        assertThat(customer.getPoint()).isEqualTo(75);
         // 구매를 했을 때 손님 잔액이 잘 남는지
         // 하지만 포인트 쌓이는 것은 아직 구현 안함
 

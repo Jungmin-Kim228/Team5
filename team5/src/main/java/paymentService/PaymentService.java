@@ -12,8 +12,16 @@ public class PaymentService {
             throw new IllegalArgumentException("productAmt is invalid: " + productAmt);
         }
         Customer customer = customerRepository.findById(customerId);
+
         paymentAmt = productAmt - customer.getPoint();
+
+        customer.setBalance(customer.getBalance() - paymentAmt);
+        customer.setPoint((long) (paymentAmt * POINT_RATE));
+        
+        customerRepository.getCustomers().put(customerId, customer);
+
         return new Receipt(customerId, productAmt);
+
     }
 
     public void setPaymentService(CustomerRepository customerRepository) {
