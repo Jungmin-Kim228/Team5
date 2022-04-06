@@ -20,25 +20,23 @@ public class PaymentServiceTest {
     @BeforeEach
     void setUp() {
         customerRepository = mock(CustomerRepository.class);
-        service = new PaymentService();
+        service = new PaymentService(customerRepository);
     }
 
     @DisplayName("실 결재 금액을 기준으로 적립율에 따라서 적립됨.")
     @Test
     void pay_and_save() {
-        Map<Long, Customer> customers = new HashMap<>();
-        Customer customer = new Customer(1L, 10000L, 500L);
-        customers.put(1L, customer);
-        CustomerRepository customerRepository = new CustomerRepository(customers);
-
         Long productAmt = 2000L;
         Long customerId = 1L;
 
-        service.setPaymentService(customerRepository);
+        Customer customer = new Customer(customerId, 10000L, 0L);
+        when(customerRepository.findById(customerId)).thenReturn(customer);
+        //service.setPaymentService(customerRepository);
         Receipt result = service.pay(productAmt, customerId);
 
-        assertThat(customer.getBalance()).isEqualTo(8500L);
-        assertThat(customer.getPoint()).isEqualTo(75);
+        assertThat(customer.getBalance()).isEqualTo(8000L);
+        assertThat(customer.getPoint()).isEqualTo(100L);
+        assertThat(result).isNotNull();
         // 구매를 했을 때 손님 잔액이 잘 남는지
         // 하지만 포인트 쌓이는 것은 아직 구현 안함
 

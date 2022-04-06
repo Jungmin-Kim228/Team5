@@ -7,6 +7,10 @@ public class PaymentService {
     private CustomerRepository customerRepository = new CustomerRepository(new HashMap<>());
     private Long paymentAmt;
 
+    public PaymentService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
     public Receipt pay(Long productAmt, Long customerId) { // 계산하고 영수증 발급
         if (productAmt == null || productAmt < 0) {
             throw new IllegalArgumentException("productAmt is invalid: " + productAmt);
@@ -18,7 +22,7 @@ public class PaymentService {
         customer.setBalance(customer.getBalance() - paymentAmt);
         customer.setPoint((long) (paymentAmt * POINT_RATE));
         
-        customerRepository.getCustomers().put(customerId, customer);
+        //customerRepository.getCustomers().put(customerId, customer);
 
         return new Receipt(customerId, productAmt);
 
