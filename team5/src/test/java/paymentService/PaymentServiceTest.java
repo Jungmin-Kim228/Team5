@@ -64,7 +64,4 @@ public class PaymentServiceTest {
             .isInstanceOf(CustomerNotExistsException.class);
     }
 
-
-
-
 }

@@ -1,7 +1,6 @@
 package paymentService;
 
 public class Customer {
-
     private Long id;
     private Long balance;
     private Long point;

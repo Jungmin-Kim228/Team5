@@ -1,7 +1,10 @@
 package paymentService;
 
 import java.util.HashMap;
-
+/**
+ * productAmt : 지불금
+ * paymentAmt : 실지불금
+ */
 public class PaymentService {
     final static Double POINT_RATE = 0.05;
     private CustomerRepository customerRepository = new CustomerRepository(new HashMap<>());
@@ -26,7 +29,3 @@ public class PaymentService {
 
     }
 }
-/*
-productAmt : 지불금
-paymentAmt : 실지불금
- */
