@@ -2,6 +2,7 @@ package paymentService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -14,11 +15,13 @@ public class PaymentServiceTest {
     PaymentService service;
     // DOC
     CustomerRepository customerRepository;
+    AlertNothingException alertDummy;
 
     @BeforeEach
     void setUp() {
         customerRepository = mock(CustomerRepository.class);
         service = new PaymentService(customerRepository);
+        alertDummy = new AlertNothingException("alert error");
     }
 
     @DisplayName("실 결재 금액을 기준으로 적립율에 따라서 적립됨.")
@@ -36,7 +39,8 @@ public class PaymentServiceTest {
         assertThat(customer.getPoint()).isEqualTo(100L);
         assertThat(result).isNotNull();
 
-//        verify(alertDummy).alertCall();
+        given(service.pay(productAmt, customerId)).willThrow(new AlertNothingException("alert error"));
+
     }
 
     @DisplayName("가지고 있는 포인트가 결제 금액보다 큰 경우")
